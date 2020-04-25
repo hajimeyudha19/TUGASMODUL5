@@ -1,0 +1,75 @@
+
+package mod5;
+
+public class userService {
+
+    private String[][] data, histories = new String[2][3]; //deklarasi data sebagai array dua dimensi dengan 2 baris dan tiga kolom
+    private String email, password, roles, find = ""; //pendefinisian sekaligus deklarasi variabel sebagai string kosong
+    
+    //ini namanya constructor yang akan dijalankan setiap class diinisialisasikan
+    public userService(String emails, String passwords){
+        email = emails;
+        password = passwords;
+        String[][] data=
+        {
+            {"HajimeYudha36@gmail.com", "12345", "superAdmin"},
+            {"KarisaZihni36@gmail.com", "12345", "user"}
+        };
+                
+        String [][] histories =
+        {
+            {"HajimeYudha36@gmail.com", "Fisika Dasar", "Dasar Komputer dan Pemrograman", "25-04-2020"},
+            {"KarisaZihni36@gmail.com", "Dasar Komputer dan Pemrograman", "Konsep Jaringan Komputer", "25-04-2020"}
+        };
+        this.data = data;
+        this.histories = histories;        
+    }
+    
+    private boolean checkCredential()   //fungsi ini untuk mengecek isi array satu persatu
+    {
+        for(int i = 0; i < data.length; i++ ) //perulangan dilakukan dengan cara memebri nilai awal i=0 kemudian dinaikkkan sampai batas data pada array
+        {
+            if(data[i][0].equals(email))    //berdasarkan nilai i tadi dimasukkkan pada array untuk menecek array pada index yang sesuai 
+            {
+                if(data[i][1].equals(password)) //pada baris yang sama, email dicek pada kolom 1 dan password dicek pada kolom 2
+                {
+                    roles = data[i][2];     //pernyataan dieksekusi bila kedua variabel tadi benar dalam pengecekan
+                                            // roles menyimpan data pada i yang benar dengan kolom ke-2
+                    return true;        //mengembalikan nilai true pada fungsi
+                }
+            }
+        }
+        return false;   // apabila nilai tidak ditemukan dalam setiap index array, fungsi mengembalikan nilai false
+    }
+    
+    public void login() //deklarasi fungsi
+    {
+        boolean status = checkCredential(); //variabel satus sebagai masukan fungsi
+        if(status == true)  //pernyataan didalamnya dieksekusi bila status bernilai true
+        {
+            System.out.println("\nWelcome " + roles);   //menampilkan pesan di dalam tanda kurung 
+            System.out.println("Logged it as user email " + email); //pesan disispi ole variabel email
+        }
+        else    //pernyataan dijalankan bila status bernilai false
+        {
+            System.out.println("\nInvalid Login ");
+        }
+    }
+
+    public void Histories() //deklarasi fungsi
+    {
+        boolean status = checkCredential(); //variabel satus sebagai masukan fungsi
+        if(status == true)  //pernyataan didalamnya dieksekusi bila status bernilai true
+        {
+            for(int i = 0; i < histories.length; i++ ){ //perulangan dilakukan dengan cara memebri nilai awal i=0 kemudian dinaikkkan sampai batas data pada array
+                if(data[i][0].equals(email)){
+                    System.out.println(histories[i][1]);
+                    System.out.println(histories[i][2]);
+                    System.out.println("Tanggal pinjaman: " +histories[i][3]);
+                }
+            }
+        }
+    }
+}    
+
+
